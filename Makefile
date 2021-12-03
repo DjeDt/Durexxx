@@ -1,7 +1,7 @@
 SERVER	= server
 CLIENT	= client
 
-CC		= gcc
+CC	= gcc
 CFLAGS	= -Wall -Werror -Wextra $(includes)
 EFLAGS	= -g3 -fsanitize=address
 
@@ -14,11 +14,14 @@ libdir		= libft/
 clientdir	= client/
 serverdir	= server/
 
-server_src =							\
-	$(serverdir)/main.c
+server_src = \
+	$(serverdir)/main.c \
+	$(serverdir)/server.c
 
-client_src = 							\
-	$(clientdir)/main.c
+client_src = \
+	$(clientdir)/main.c \
+	$(clientdir)/download.c \
+	$(clientdir)/list.c
 
 includes = -I $(incdir) -I $(libdir)/includes -L $(libdir) -lft
 
