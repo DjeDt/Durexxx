@@ -52,8 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Mine
-./Durex
 ./durex
-./client
+./dropper
 ./server
 *~
