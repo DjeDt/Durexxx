@@ -1,4 +1,4 @@
-#include "client.h"
+#include "durex.h"
 
 int                     init_connection(void)
 {

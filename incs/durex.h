@@ -1,5 +1,5 @@
-#ifndef CLIENT_H
-# define CLIENT_H
+#ifndef DUREX_H
+# define DUREX_H
 
 # include "libft.h"
 
@@ -14,6 +14,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
+// debug purpose
+# include <syslog.h>
 
 # define DEFAULT_PORT 80
 # define DEFAULT_IP "127.0.0.1"
@@ -42,6 +44,5 @@ t_data  *data_create(const char *buffer, int len);
 void    data_push(t_data **data, t_data *chunk);
 void    data_add(t_data **data, const char *buffer, int len);
 void    data_free(t_data **data);
-
 
 #endif

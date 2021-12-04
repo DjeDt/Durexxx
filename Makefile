@@ -1,5 +1,5 @@
 SERVER	= server
-CLIENT	= client
+CLIENT	= durex
 
 CC	= gcc
 CFLAGS	= -Wall -Werror -Wextra $(includes)
@@ -11,7 +11,7 @@ objdir	= .obj
 
 # subdir
 libdir		= libft/
-clientdir	= client/
+clientdir	= durex/
 serverdir	= server/
 
 server_src = \
@@ -19,7 +19,7 @@ server_src = \
 	$(serverdir)/server.c
 
 client_src = \
-	$(clientdir)/main.c \
+	$(clientdir)/durex.c \
 	$(clientdir)/download.c \
 	$(clientdir)/daemonize.c \
 	$(clientdir)/list.c

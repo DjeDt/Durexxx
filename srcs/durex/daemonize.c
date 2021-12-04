@@ -1,4 +1,4 @@
-#include "client.h"
+#include "durex.h"
 
 void    create_daemon_old_style(void)
 {
@@ -70,5 +70,6 @@ void    create_daemon_old_style(void)
     // > ps -xj | grep "./client"
     // 1   84071   84068   84068 ?             -1 S     1000   0:00 ./client
 
+    openlog ("Durex", LOG_PID, LOG_DAEMON);
     return ;
 }

