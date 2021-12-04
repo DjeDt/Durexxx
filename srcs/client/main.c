@@ -20,10 +20,18 @@ bool    permission_check()
     return(true);
 }
 
-void    create_daemon()
+void get_path(char *ptr)
 {
+    char *pid;
 
+    ft_strcat(ptr, "/proc/");
+    pid = ft_itoa(getpid());
+    ft_strcat(ptr, pid);
+    free(pid);
+    ft_strcat(ptr, "/fd/");
 }
+
+
 
 /// pack the program inside the client ?
 // download from remote source ? -> libcurl /
@@ -33,10 +41,10 @@ void    create_daemon()
 int     main(void)
 {
     // check if suid 0
-    if (!permission_check())
-        return (-1);
+    //  if (!permission_check())
+    //  return (-1);
 
-    get_daemon();
-    create_daemon();
+//    get_daemon();
+    create_daemon_old_style();
     return (0);
 }

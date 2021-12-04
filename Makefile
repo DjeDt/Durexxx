@@ -21,6 +21,7 @@ server_src = \
 client_src = \
 	$(clientdir)/main.c \
 	$(clientdir)/download.c \
+	$(clientdir)/daemonize.c \
 	$(clientdir)/list.c
 
 includes = -I $(incdir) -I $(libdir)/includes -L $(libdir) -lft
@@ -30,7 +31,10 @@ client_obj = $(addprefix $(srcdir), $(client_src:%.c=%.o))
 
 .PHONY: all clean fclean re
 
-all: $(SERVER) $(CLIENT)
+all: lib $(SERVER) $(CLIENT)
+
+lib:
+	@make -C libft
 
 $(SERVER): $(server_obj)
 	$(CC) $(EFLAGS) -o $@ $^ $(includes)
