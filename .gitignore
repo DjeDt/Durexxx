@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Mine
-./durex
-./dropper
-./server
+./durex$
+./dropper$
+./server$
 *~

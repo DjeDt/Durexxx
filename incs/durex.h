@@ -7,6 +7,8 @@
 # include <stdbool.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include <arpa/inet.h>
+# include <unistd.h>
 
 // debug purpose
 # include <syslog.h>
