@@ -22,6 +22,7 @@ server_src = \
 
 durex_src = \
 	$(durexdir)/main.c \
+	$(durexdir)/server.c \
 	$(durexdir)/daemonize.c
 
 dropper_src = \

